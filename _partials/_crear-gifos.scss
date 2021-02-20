@@ -1,0 +1,208 @@
+/*crear gifos solo para desktop*/
+#crear-gifos{
+    display: none;
+    margin: auto;
+    .contenedor-general{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .content-creargifos{
+        display: flex;
+        justify-content: space-around;
+        max-width: 1349px;
+        height: 465px;
+        .cuadrado{
+            position: relative;
+            width: 688px;
+            height: 390px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid $color-blue;
+            h2{
+                font-family: $montserrat;
+                font-weight: 700;
+                font-size: 25px;
+                color: $color-blue;
+                text-align: center;
+                span{
+                    color: $color-green;
+                }
+            }  
+            p{
+                font-family: $roboto;
+                font-size: 16px;
+                color: #000000;
+                text-align: center;
+            }
+            #video-box{
+                display: none;
+                position: relative;
+                top:-10%;
+                width: 570px;
+                height: 320px;
+            }
+            .alertaSubiendoGif, .alertaGifSubido{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top:32px;
+                width: 570px;
+                height: 320px;
+                background-color: $color-blue;
+                opacity: 60%;
+                p{
+                    color: white;
+                }
+
+                .icon-trash{
+                    position: absolute;
+                    top:15px;
+                    right: 55px;
+                }
+                
+                .icon-download{
+                    position: absolute;
+                    top:15px;
+                    right: 8px;
+                }
+                #loader {
+                    -webkit-animation: rotation 2s infinite linear;
+                    width: 30px;
+                }           
+                @-webkit-keyframes rotation{
+                    from {
+                            -webkit-transform: rotate(0deg);
+                    }
+                    to {
+                            -webkit-transform: rotate(359deg);
+                    }
+                }
+                #check {
+                    animation: crescendo 1s alternate infinite ease-in;
+                    width: 30px;
+                }     
+                  @keyframes crescendo {
+                    0%   {transform: scale(.8);}
+                    100% {transform: scale(1.5);}
+                }
+            }
+        }
+    } 
+    
+    #camara{
+        width: 123px;
+        height: 180px;
+        align-self: center;
+        position: relative;
+        right: 50px;
+    }
+    #luz-camara{
+        width: 50px;
+        background-image: linear-gradient(267deg, rgba(136,243,226,0.00) 22%, #50E3C2 100%);
+        clip-path: polygon(0 50%, 0 42%, 100% 31%, 100% 60%);
+        position: relative;
+        top:20px;
+        right:50px ;
+    }
+    #pelicula{
+        width: 142px;
+        height: 88px;
+        align-self: flex-end;
+        margin-left: 20px;
+    } 
+    .numeros{
+        display: flex;
+        flex-direction: row;
+        height: 30px;
+        #btn1, #btn2, #btn3{
+            position: relative;
+            top:-72px;
+            left: 45%;
+            margin-left: 5px;
+            font-family: $roboto;
+            font-size: 18px;
+            color: #572EE5;
+            text-align: center;
+            width: 27px;
+            height: 27px;
+            border-radius: 200px 200px 200px 200px;
+            -moz-border-radius: 200px 200px 200px 200px;
+            -webkit-border-radius: 200px 200px 200px 200px;
+            border: 1px solid $color-blue;
+        }
+        span{
+            position: relative;
+            width: 795.9px;
+            height: 6.9px;
+            background-color: $color-blue;
+        }
+        .repetir-captura {
+            visibility:hidden;
+            position: relative;
+            top:-65px;
+            right: 215px;
+            color: $color-blue;
+            font-family: $montserrat;
+            font-weight: 700;
+            font-size: 13px;    
+        }
+        .repetir-captura::after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 0px;
+        width: 130px;
+        height: 2px;
+        background: $color-green;
+        border-radius: 5px;
+        }
+        #temporizador{
+            display: none;
+            position: relative;
+            top:-55px;
+            right:120px;
+            margin-top: 7px;
+            color: $color-blue;
+            font-family: $montserrat;
+            font-weight: 700;
+            font-size: 13px; 
+        }
+    } 
+  }
+
+//MODO NOCTURNO
+  .nocturno #crear-gifos{
+    background-color: $modo-nocturno-grisclaro;
+    .content-creargifos{
+        .cuadrado{ 
+            border: 1px solid white;
+            h2{
+                color: white;
+            }
+            p{
+                color: white;
+            }
+        }
+    }
+   .numeros{
+    #btn1, #btn2, #btn3 {
+           color: white;
+           border: 1px solid white;
+        }
+        span{
+            background-color: white;
+        }
+        .repetir-captura{
+            color: white;
+        }
+        #temporizador{
+            color: white;
+        }
+    }
+}

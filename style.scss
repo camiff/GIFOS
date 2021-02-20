@@ -1,0 +1,23 @@
+$montserrat: 'Montserrat', sans-serif;
+$roboto:'Roboto', sans-serif;
+$color-blue: #572EE5;
+$color-grey:#9CAFC3;
+$color-green: #5ED7C6;
+$modo-nocturno-grisclaro: #37383C;
+$modo-nocturno-grisoscuro: #222326;
+
+@import "_partials/header";
+@import "_partials/menu-options";
+@import "_partials/crear-gifos";
+@import "_partials/hero";
+@import "_partials/trending";
+@import "_partials/hovers";
+@import "_partials/gif-ampliado";
+@import "_partials/footer";
+
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0px;
+}

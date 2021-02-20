@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIFOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+    <!--fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+</head>
+<body>
+    <header id="header" >
+        <a href=""><img class="logo" src="./GIFOS-UI-Desktop+Mobile-Update/assets/logo-mobile.svg" alt="logo"></a> 
+        <nav class="menu">
+            <div class="menu-btn">
+                <div class="menu-btn__burger"></div>
+            </div>
+            <ul class="menu-list">
+               <li class="cambiar-modo">Modo nocturno</li>
+               <li class="favs">Favoritos</li> 
+               <li class="gifos">Mis GIFOS</li>
+               <li class="add-button" id="add-button"></li>
+               
+            </ul>     
+        </nav>
+    </header>
+   <main>
+    <!--HERO-->
+    <section class="hero" id="hero">
+        <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
+            <img class="hero_img" src="./GIFOS-UI-Desktop+Mobile-Update/assets/ilustra_header.svg" alt="hero_img">
+        <div id="search-bar">
+            <img id="icon_searchgray" src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon_searchgray.png" alt="searchgray">
+            <input id="input" placeholder="Busca GIFOS y más" type="text" autocomplete="off">
+            <img id="icon_search" src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-search.svg" alt="icon-search">
+            <span></span>
+            <div id="suggest-container"></div>
+        </div>
+        <div id="trending_hero">
+            <h3>Trending:</h3>
+        </div>
+        <span id="line-title"></span>
+        <h2 id="title"></h2>
+        <div id="result-container">
+        </div>
+        <div id="notfound">
+            <h2 id="title"></h2>
+            <img src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-busqueda-sin-resultado.svg" alt="notfound">
+            <p>Intenta con otra búsqueda.</p>
+        </div>
+        <button class="ver-mas" id="verMas">VER MÁS</button>
+    </section>
+    <!--Favoritos-->
+    <section class="favoritos" id="favoritos">
+        <div class="content-fav">
+            <img src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-favoritos.svg" alt="iconFav">    
+            <h2>Favoritos</h2>
+            <div id="div-favoritos">
+                <div id="favoritos-vacio">
+                    <img src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav-sin-contenido.svg" alt="">
+                    <p>¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!</p>
+                </div>
+            </div>
+            <button class="ver-mas" id="verMasFav">VER MÁS</button>
+        </div>
+    </section>
+    <!--Mis Gifos-->
+    <section class="mis-gifos" id="mis-gifos">
+        <div class="content-misgifs">
+            <img src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-mis-gifos.svg" alt="iconMisGif">
+            <h2>Mis Gifos</h2>
+            <div id="div-MisGifos">
+                <div id="misGifos-vacio">
+                    <img src="./GIFOS-UI-Desktop+Mobile-Update/assets/icon-mis-gifos-sin-contenido.svg" alt="">
+                    <p>¡Anímate a crear tu primer GIFO!</p>
+                </div>
+            </div>
+            <button class="ver-mas" id="verMasGifs">VER MÁS</button>
+        </div>
+    </section>
+    <!--Crear Gifos-->
+    <section class="crear-gifos" id="crear-gifos">
+        <div class="contenedor-general">
+            <div class="content-creargifos">
+                <img id="camara" src="./GIFOS-UI-Desktop+Mobile-Update/assets/camara.svg" alt="">
+                <span id="luz-camara"></span>
+                <div class="cuadrado" id="cuadrado">
+                    <h2 id='primer-h2'>Aquí podrás<br>crear  tus propios <span>GIFOS</span></h2>
+                    <p id="primer-p">¡Crea tu GIFO en sólo 3 pasos!<br>(sólo necesitas una cámara para grabar un video)</p>
+                    <video id="video-box"></video>
+                </div>
+                <img id="pelicula" src="./GIFOS-UI-Desktop+Mobile-Update/assets/pelicula.svg" alt="">
+            </div>
+            <div class="numeros">
+                <p id="btn1">1</p>
+                <p id="btn2">2</p>
+                <p id="btn3">3</p>
+                <span></span>
+                <p id="temporizador">00:00:00</p>
+                <p class="repetir-captura" id="repetir-captura">REPETIR CAPTURA</p>
+            </div>
+            <button class="comenzar" id="comenzar">COMENZAR</button>
+            <button class="grabar-finalizar-subir" id="grabar-finalizar-subir">GRABAR</button>
+        </div>
+    </section>
+    <!--TRENDING-->
+    <section class="trending">
+        <h2>Trending GIFOS</h2>
+        <p>Mira los últimos<br> GIFOS de nuestra comunidad.</p>
+        <div id="sliderContainer">
+            <img class="slide" id="sliderLeft" src="./GIFOS-UI-Desktop+Mobile-Update/assets/button-slider-left.svg" alt="button-slider-left">
+            <div id="gif-trending"></div>
+            <img class="slide" id="sliderRight" src="./GIFOS-UI-Desktop+Mobile-Update/assets/Button-Slider-right.svg" alt="Button-Slider-right">
+        </div>
+    </section>
+    <!--FOOTER-->
+    <footer>
+        <div class="share">
+            <p>Compartir en:</p>
+            <div class="icon-container">
+                <a href="https://es-la.facebook.com/login/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/login?lang=es" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/accounts/login/?next=" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <p>© GIFOS 2020 All Rights Reserved.</p>
+    </footer>
+   </main>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/*FAVORITOS, MIS GIFOS, CREAR GIFOS*/
+#favoritos, #mis-gifos{
+    display: none;
+}
+.content-fav, .content-misgifs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 28px;
+        height: 21px;
+    }
+    h2{
+        margin-top: 10px;
+        font-family: $montserrat;
+        font-weight:700;
+        font-size: 20px;
+        color: $color-blue;
+    }
+}
+
+
+/*contenedor de los favoritos guardados*/
+#div-favoritos, #div-MisGifos{
+    min-width: 354px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .gifs{
+        width: 156px;
+        height: 120px;
+        margin-right: 21px;
+        margin-bottom: 21px;
+    }
+    #favoritos-vacio, #misGifos-vacio{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 551px;
+        img{
+            width: 40px;
+            height: 33px;  
+            margin: 0px;
+        }
+        p{
+            font-family: $montserrat;
+            font-weight: 700;
+            font-size: 16px;
+            color:$color-green;
+            text-align: center;
+            width: 450px;
+        }
+    }
+}
+
+/*ESTILO DE LOS BOTONES*/
+
+//VER MAS FAV, MIS GIFOS y SUBIR GIFO
+.ver-mas, .grabar-finalizar-subir, .comenzar{
+    display: none;
+    width: 127px; 
+    height: 50px;
+    border-radius: 25px;
+    border: solid $color-blue 1px;
+    font-family: $montserrat;
+    font-weight: 700;
+    font-size: 13px;
+    color: $color-blue;
+    text-align: center;
+    background-color: white;
+    &:hover{
+        background-color: $color-blue;
+        color: white;
+    }
+    &:focus{
+        outline: none;
+    } 
+}
+.comenzar{
+    display: block;
+    margin-bottom: 26px;
+}
+.grabar-finalizar-subir{
+    margin-top: 0px;
+    margin-bottom: 26px;
+}
+
+
+@media only screen and (min-width: 768px){
+    #favoritos{
+        h2{
+            font-size: 25px;
+        }
+    }
+    #div-favoritos, #div-MisGifos{
+        min-width: 1127px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        .gifs{
+            width: 357px;
+            height: 275px;
+            margin-right: 29px;
+            margin-bottom: 29px;
+        }
+        #favoritos-vacio, #misGifos-vacio{
+            img{
+                width: 150px;
+                height: 151px;  
+            }
+            p{
+                font-size: 22px;
+            }
+        }
+    }
+}
+
+//MODO NOCTURNO
+
+.nocturno #favoritos {
+    background-color: $modo-nocturno-grisclaro;
+    h2{
+        color: white;
+    }
+}
+.nocturno #mis-gifos {
+    background-color: $modo-nocturno-grisclaro;
+    h2{
+        color: white;
+    }
+}
+.nocturno .ver-mas {
+    background-color: $modo-nocturno-grisclaro;
+    color: white;
+    border: solid white 1px;
+    &:hover{
+        background-color: white;
+        color: $modo-nocturno-grisclaro;
+    }
+}
+
+.nocturno .comenzar {
+    background-color: $modo-nocturno-grisclaro;
+    color: white;
+    border: solid white 1px;
+    &:hover{
+        background-color: white;
+        color: $modo-nocturno-grisclaro;
+    }
+}
+
+.nocturno .grabar-finalizar-subir {
+    background-color: $modo-nocturno-grisclaro;
+    color: white;
+    border: solid white 1px;
+    &:hover{
+        background-color: white;
+        color: $modo-nocturno-grisclaro;
+    }
+}

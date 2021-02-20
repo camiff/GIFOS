@@ -1,0 +1,61 @@
+
+
+
+
+/*gif ampliado*/
+.gif-trending-max{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+   
+    .closeMax{
+        position: relative;
+        right: -250px;
+    }
+    .divIconosMax{
+        position: relative;
+       .icon-fav, .icon-download{
+           width: 36px;
+           height: 36px;
+       }
+       .icon-fav{
+           position: absolute;
+           right: 0px;
+           top: 0px;
+       }
+       .icon-download{
+            position: absolute;
+            right: 40px;
+            top: 0px;
+       }
+       div{
+            display:flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-items: flex-start;
+            position: relative;
+            right: 50px;
+            min-width: 400px;
+        }        
+    }
+}
+
+.nocturno .gif-trending-max{
+    background-color: $modo-nocturno-grisclaro;
+}
+
+@media only screen and (min-width: 768px){
+    .gif-trending-max{
+        .closeMax{
+            right: -300px;
+        }
+    }
+}
