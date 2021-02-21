@@ -1,3 +1,33 @@
+// Creación del objeto de Storage local
+let myStorage = window.localStorage;
+if (myStorage.length !== 0) {
+    myStorage.removeItem('pb_exceptions');
+    myStorage.removeItem('pb_user_activity');
+    myStorage.removeItem('pb_forms');
+    const allStorage = getAllStorage(myStorage);
+    console.log(allStorage)
+    allStorage.forEach(element => {
+        const containerGifHover = document.createElement('div');
+        containerGifHover.classList.add('containerGifHover');
+        containerGifHover.innerHTML = element;
+        const divFavoritos = document.getElementById('div-favoritos');
+        divFavoritos.appendChild(containerGifHover);
+        document.getElementById('favoritos-vacio').style.display = 'none';
+    })
+}
+
+function getAllStorage(storage) {
+    let archive = [],
+        keys = Object.keys(storage),
+        i = keys.length;
+
+    while ( i-- ) {
+        archive.push( storage.getItem(keys[i]) );
+    }
+
+    return archive;
+}
+
 /*funcion para download los gifs*/
 function toDataURL(url) {
     return fetch(url).then((response) => {
@@ -240,14 +270,19 @@ function traerGifos(data, resetN, fromTrending) {
         data.data.forEach(gif => {
             const gifs = document.createElement('img');
             gifs.src = gif.images.original.url; 
-            gifs.classList.add('gifs')   
-            document.getElementById('notfound').style.display = 'none'; 
+            gifs.classList.add('gifs');
+            document.getElementById('notfound').style.display = 'none';
 
-            // Esto crea el hover
+            // Esto crea el hover los textos del hover
             let userName = document.createElement('p');
-            userName = gif.username;
+            userName.id = 'username';
+            userName.innerText = gif.username;
             let gifTitle = document.createElement('p');
-            gifTitle = gif.title;
+            gifTitle.innerText = gif.title;
+            gifTitle.id = 'gif-title';
+            let textContainer = document.createElement('div');
+            textContainer.appendChild(userName);
+            textContainer.appendChild(gifTitle);
             // fav icon
             const iconFav = document.createElement('img');
             iconFav.classList.add('icon-fav');
@@ -263,6 +298,7 @@ function traerGifos(data, resetN, fromTrending) {
             // hover icons
             const hoverIcons = document.createElement('div');
             hoverIcons.classList.add('hoverIcons');
+            hoverIcons.appendChild(textContainer);
             hoverIcons.appendChild(iconFav);
             hoverIcons.appendChild(iconDownload);
             hoverIcons.appendChild(iconMax);
@@ -290,12 +326,17 @@ function traerGifos(data, resetN, fromTrending) {
                     iconFavN.classList.replace('icon-fav', 'faved-icon');
                     iconFavN.classList.add('clicked');
                     iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav-active.svg';
-                    iconFavN.addEventListener('click', ()=>{
-                        const containerFav = favedIcon.parentElement.parentNode;
-                        divFavoritos.removeChild(containerFav);
-                        iconFavN.classList.replace('faved-icon', 'icon-fav');
-                        iconFavN.classList.remove('clicked');
-                        iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                    iconFavN.addEventListener('click', () => {
+                        if (wasIconFavNClicked) {
+                            const containerFav = favedIcon.parentElement.parentNode;
+                            divFavoritos.removeChild(containerFav);
+                            iconFavN.classList.replace('faved-icon', 'icon-fav');
+                            iconFavN.classList.remove('clicked');
+                            iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                            if (divFavoritos.childElementCount === 1) {
+                                document.getElementById('favoritos-vacio').style.display = 'block';
+                            }
+                        }
                     })
                     // clonación
                     const gifClone = gifs.cloneNode(true);
@@ -307,27 +348,26 @@ function traerGifos(data, resetN, fromTrending) {
                     const favedIcon = document.createElement('img');
                     favedIcon.classList = 'faved-icon';
                     favedIcon.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav-active.svg';
-                    favedIcon.addEventListener ('click', ()=>{
-                       const containerFav = favedIcon.parentElement.parentNode;
-                       divFavoritos.removeChild(containerFav);
-                       iconFavN.classList.replace('faved-icon', 'icon-fav');
-                       iconFavN.classList.remove('clicked');
-                       iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                    favedIcon.addEventListener ('click', () => {
+                        const containerFav = favedIcon.parentElement.parentNode;
+                        divFavoritos.removeChild(containerFav);
+                        iconFavN.classList.replace('faved-icon', 'icon-fav');
+                        iconFavN.classList.remove('clicked');
+                        iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                        if (divFavoritos.childElementCount === 1) {
+                            document.getElementById('favoritos-vacio').style.display = 'block';
+                        }
                     })
                     // reemplaza icon-fav por faved-icon
                     hoverIconsClone.firstChild.replaceWith(favedIcon);
                     // copia estructura de gif con hover
                     containerGifHover.appendChild(hoverIconsClone);
                     containerGifHover.appendChild(gifClone);
-                    divFavoritos.appendChild(containerGifHover)
+                    divFavoritos.appendChild(containerGifHover);
+                    // myStorage.setItem(`fav-${gifTitle.innerText}`, containerGifHover.innerHTML)
+                    // console.log(Object.keys(myStorage))
                     // elimina mensaje de favoritos vacíos
                     document.getElementById('favoritos-vacio').style.display = 'none';
-                    /*Condicion para diferenciar
-                    if (fromTrending === true) {
-                        mostrarVerMas(imageFav);
-                    } else {
-                        mostrarVerMas();
-                    }*/
                 } else {
                     return false
                 }
