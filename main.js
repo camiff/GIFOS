@@ -61,17 +61,12 @@ cambiarModo.addEventListener('click', () => {
         document.getElementById('sliderRight').src = './GIFOS-UI-Desktop+Mobile-Update/assets/button-slider-right-md-noct.svg';
         document.getElementById('camara').src = './GIFOS-UI-Desktop+Mobile-Update/assets/camara-modo-noc.svg';
         document.getElementById('pelicula').src = './GIFOS-UI-Desktop+Mobile-Update/assets/pelicula-modo-noc.svg';
-       /* botonFavs.style.color = 'white';
-        botonGifos.style.color = 'white';*/
-
     } else {
         document.getElementById('icon_search').src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-search.svg';
         document.getElementById('sliderLeft').src = './GIFOS-UI-Desktop+Mobile-Update/assets/button-slider-left.svg';
         document.getElementById('sliderRight').src = './GIFOS-UI-Desktop+Mobile-Update/assets/Button-Slider-right.svg';
         document.getElementById('camara').src = './GIFOS-UI-Desktop+Mobile-Update/assets/camara.svg';
         document.getElementById('pelicula').src = './GIFOS-UI-Desktop+Mobile-Update/assets/pelicula.svg';
-        /*botonFavs.style.color = ' #572EE5';
-        botonGifos.style.color = ' #572EE5';*/
     }   
 }); 
 
@@ -233,9 +228,9 @@ function traerGifos(data, resetN, fromTrending) {
     const gifTrending = document.getElementById('gif-trending');
     //Condicion para diferenciar
     if (fromTrending === true) {
-        let gifTrendingList = document.getElementsByClassName('containerGifHover');
-        let gifTrendingAmount = gifTrendingList.length;
-        console.log(    )
+        gifTrending.innerHTML = '';
+        /*let gifTrendingList = document.getElementsByClassName('containerGifHover');
+        let gifTrendingAmount = gifTrendingList.length;*/
         // gifTrendingList.forEach(gif => {
         //     let gifIndex = gifTrendingList.
         // })
@@ -295,6 +290,13 @@ function traerGifos(data, resetN, fromTrending) {
                     iconFavN.classList.replace('icon-fav', 'faved-icon');
                     iconFavN.classList.add('clicked');
                     iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav-active.svg';
+                    iconFavN.addEventListener('click', ()=>{
+                        const containerFav = favedIcon.parentElement.parentNode;
+                        divFavoritos.removeChild(containerFav);
+                        iconFavN.classList.replace('faved-icon', 'icon-fav');
+                        iconFavN.classList.remove('clicked');
+                        iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                    })
                     // clonación
                     const gifClone = gifs.cloneNode(true);
                     const hoverIconsClone = hoverIcons.cloneNode(true);
@@ -305,6 +307,13 @@ function traerGifos(data, resetN, fromTrending) {
                     const favedIcon = document.createElement('img');
                     favedIcon.classList = 'faved-icon';
                     favedIcon.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav-active.svg';
+                    favedIcon.addEventListener ('click', ()=>{
+                       const containerFav = favedIcon.parentElement.parentNode;
+                       divFavoritos.removeChild(containerFav);
+                       iconFavN.classList.replace('faved-icon', 'icon-fav');
+                       iconFavN.classList.remove('clicked');
+                       iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
+                    })
                     // reemplaza icon-fav por faved-icon
                     hoverIconsClone.firstChild.replaceWith(favedIcon);
                     // copia estructura de gif con hover
