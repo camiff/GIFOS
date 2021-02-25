@@ -256,15 +256,7 @@ function busqueda(q){
 function traerGifos(data, resetN, fromTrending) {
     const resultContainer = document.getElementById('result-container');
     const gifTrending = document.getElementById('gif-trending');
-    //Condicion para diferenciar
-    if (fromTrending === true) {
-        gifTrending.innerHTML = '';
-        /*let gifTrendingList = document.getElementsByClassName('containerGifHover');
-        let gifTrendingAmount = gifTrendingList.length;*/
-        // gifTrendingList.forEach(gif => {
-        //     let gifIndex = gifTrendingList.
-        // })
-    }
+    
     let n = resetN;
     if (data.data.length !== 0) {
         data.data.forEach(gif => {
@@ -298,10 +290,10 @@ function traerGifos(data, resetN, fromTrending) {
             // hover icons
             const hoverIcons = document.createElement('div');
             hoverIcons.classList.add('hoverIcons');
-            hoverIcons.appendChild(textContainer);
             hoverIcons.appendChild(iconFav);
             hoverIcons.appendChild(iconDownload);
             hoverIcons.appendChild(iconMax);
+            hoverIcons.appendChild(textContainer);
             // gif container
             const containerGifHover = document.createElement('div');
             containerGifHover.classList.add('containerGifHover');
@@ -334,7 +326,7 @@ function traerGifos(data, resetN, fromTrending) {
                             iconFavN.classList.remove('clicked');
                             iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
                             if (divFavoritos.childElementCount === 1) {
-                                document.getElementById('favoritos-vacio').style.display = 'block';
+                                document.getElementById('favoritos-vacio').style.display = 'flex';
                             }
                         }
                     })
@@ -342,8 +334,8 @@ function traerGifos(data, resetN, fromTrending) {
                     const gifClone = gifs.cloneNode(true);
                     const hoverIconsClone = hoverIcons.cloneNode(true);
                     hoverIconsClone.classList.add('hoverIcons');
-                    const containerGifHover = document.createElement('div');
-                    containerGifHover.classList.add('containerGifHover');
+                    const containerGifHoverClone = document.createElement('div');
+                    containerGifHoverClone.classList.add('containerGifHoverClone');
                     // faved icon
                     const favedIcon = document.createElement('img');
                     favedIcon.classList = 'faved-icon';
@@ -355,16 +347,16 @@ function traerGifos(data, resetN, fromTrending) {
                         iconFavN.classList.remove('clicked');
                         iconFavN.src = './GIFOS-UI-Desktop+Mobile-Update/assets/icon-fav.svg';
                         if (divFavoritos.childElementCount === 1) {
-                            document.getElementById('favoritos-vacio').style.display = 'block';
+                            document.getElementById('favoritos-vacio').style.display = 'flex';
                         }
                     })
                     // reemplaza icon-fav por faved-icon
                     hoverIconsClone.firstChild.replaceWith(favedIcon);
                     // copia estructura de gif con hover
-                    containerGifHover.appendChild(hoverIconsClone);
-                    containerGifHover.appendChild(gifClone);
-                    divFavoritos.appendChild(containerGifHover);
-                    // myStorage.setItem(`fav-${gifTitle.innerText}`, containerGifHover.innerHTML)
+                    containerGifHoverClone.appendChild(hoverIconsClone);
+                    containerGifHoverClone.appendChild(gifClone);
+                    divFavoritos.appendChild(containerGifHoverClone);
+                    // myStorage.setItem(`fav-${gifTitle.innerText}`, containerGifHoverClone.innerHTML)
                     // console.log(Object.keys(myStorage))
                     // elimina mensaje de favoritos vacíos
                     document.getElementById('favoritos-vacio').style.display = 'none';
@@ -452,9 +444,23 @@ function traerGifos(data, resetN, fromTrending) {
         document.getElementById('notfound').style.display = 'block';
         btnVerMas.style.display = 'none';
     }
+    //Condicion para diferenciar
+    if (fromTrending === true) {
+        let gifTrendingList = Array.from(document.getElementsByClassName('containerGifHover'));
+        console.log(gifTrendingList)
+        let gifTrendingAmount = gifTrendingList.length;
+        gifTrendingList.forEach(gif => {
+            let gifIndex = gifTrendingList.indexOf(gif)
+            if (gifIndex >= gifTrendingAmount - 3) {
+                gifTrending.appendChild(gif)
+            } else {
+                gif.style.display = 'none';
+            }
+        })
+    }
 }
 
-//TITULOS DE TRENDINGS DEL HERO  
+//TITULOS DE TRENDINGS DEL HERO
 const urlTags = 'https://api.giphy.com/v1/trending/searches?api_key=SsbriA4VI3IlgJ8nQHjiFzsjMPGRimor&limit=4';
  
 fetch(urlTags)
@@ -501,14 +507,18 @@ fetch(urlTrending)
 let sliderRight = document.getElementById('sliderRight');
 let offset = 0;
 sliderRight.addEventListener('click', () => {
-    offset = offset + 3;
-    let clickUrl = `
-        https://api.giphy.com/v1/gifs/trending?api_key=SsbriA4VI3IlgJ8nQHjiFzsjMPGRimor&limit=3&offset=${offset}
-    `;
-    fetch(clickUrl)
-   .then(response => response.json())
-   .then(data => traerGifos(data, 0, true))
-   .catch(error => console.log("error:", error));
+    let gifTrendingList = Array.from(document.getElementsByClassName('containerGifHover'));
+    // if () {
+        offset = offset + 3;
+        console.log(offset)
+        let clickUrl = `
+            https://api.giphy.com/v1/gifs/trending?api_key=SsbriA4VI3IlgJ8nQHjiFzsjMPGRimor&limit=3&offset=${offset}
+        `;
+        fetch(clickUrl)
+        .then(response => response.json())
+        .then(data => traerGifos(data, 0, true))
+        .catch(error => console.log("error:", error));
+    // }
 })
 
 /*hover de slider derecho*/
@@ -529,13 +539,23 @@ sliderLeft.addEventListener('click', () => {
         return false;
     } else {
         offset = offset - 3;
-        let clickUrl = `
-            https://api.giphy.com/v1/gifs/trending?api_key=SsbriA4VI3IlgJ8nQHjiFzsjMPGRimor&limit=3&offset=${offset}
-        `;
-        fetch(clickUrl)
-        .then(response => response.json())
-        .then(data => traerGifos(data, 0, true))
-        .catch(error => console.log("error:", error));
+        console.log(offset)
+        let gifTrendingList = Array.from(document.getElementsByClassName('containerGifHover'));
+        gifTrendingList.forEach(gif => {
+            let gifIndex = gifTrendingList.indexOf(gif)
+            if (gifIndex < offset + 3 && gifIndex >= offset) {
+                gif.style.display = 'block';
+            } else {
+                gif.style.display = 'none';
+            }
+        })
+        // let clickUrl = `
+        //     https://api.giphy.com/v1/gifs/trending?api_key=SsbriA4VI3IlgJ8nQHjiFzsjMPGRimor&limit=3&offset=${offset}
+        // `;
+        // fetch(clickUrl)
+        // .then(response => response.json())
+        // .then(data => traerGifos(data, 0, true))
+        // .catch(error => console.log("error:", error));
     } 
  });
 
